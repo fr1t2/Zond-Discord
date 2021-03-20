@@ -25,7 +25,6 @@ module.exports = {
     const userName = username.slice(1, -1);
     const user_info = { service: 'discord', user_id: userName };
     const checkUserpromise = checkUser(user_info);
-    const checkAddedUserpromise = dbHelper.checkAddedUser(user_info);
     const getBalance = wallet.GetBalance;
 
 
@@ -135,6 +134,9 @@ module.exports = {
           return output;
         }
         else if (found === 'false') {
+          const checkAddedUser = dbHelper.checkAddedUser;
+          const checkAddedUserpromise = checkAddedUser(user_info);
+
           checkAddedUserpromise().then(function(userPending){
             if (userPending) {
               // user has already signed up and a wallet is being generated
