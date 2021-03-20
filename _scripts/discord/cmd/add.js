@@ -148,7 +148,7 @@ module.exports = {
             ReplyMessage('Be right back, generating a new quantum secure address for you to send tips from...');
             // Create user wallet
             const addedUser = dbHelper.addedUser;
-            const addedUserPromise = addedUser({ service_id: `@${MessageAuthorID}`, service: 'discord' });
+            const addedUserPromise = addedUser({ service_id: `'@${MessageAuthorID}'`, service: 'discord' });
             addedUserPromise().then(function(){
 
               const qrlWal = wallet.CreateQRLWallet;
