@@ -25,6 +25,7 @@ module.exports = {
     const userName = username.slice(1, -1);
     const user_info = { service: 'discord', user_id: userName };
     const checkUserpromise = checkUser(user_info);
+    const checkAddedUserpromise = checkUser(user_info);
     const getBalance = wallet.GetBalance;
 
 
@@ -134,84 +135,94 @@ module.exports = {
           return output;
         }
         else if (found === 'false') {
-          // user is not found in database. Do things here to add them
-          ReplyMessage('Be right back, generating a new quantum secure address for you to send tips from...');
-          // Create user wallet
-          const qrlWal = wallet.CreateQRLWallet;
-          const WalletPromise = qrlWal();
-          WalletPromise.then(function(address) {
-            const QRLaddress = JSON.parse(address);
-            const discord_id = '@' + MessageAuthorID;
-            const wallet_pub = QRLaddress.address;
-            faucetBalance().then(function(faucBal) {
-              if (dripamt > faucBal.balance) {
-                dripamt = 0;
-              }
+          checkAddedUserpromise().then(function(userPending){
+            if (userPending) {
+              // user has already signed up and a wallet is being generated
+              ReplyMessage('Please be patient, I have to generate your keys...');
+              return;
+            }
+            // user is not found in database. Do things here to add them
+            ReplyMessage('Be right back, generating a new quantum secure address for you to send tips from...');
+            // Create user wallet
+            const addedUser = dbHelper.addedUser;
+            const addedUserPromise = addedUser({ service_id: `'@'${MessageAuthorID}`, service: 'discord' });
+            addedUserPromise().then(function(){
 
-              // test username for valid char and if not valid use default from above
-              const usernameCheck = discordHelpers.CheckValidChars(message.author.username);
-              if (usernameCheck) {
-                MessageAuthorUsername = 'haxerFromDiscord';
-              }
-              else {
-                MessageAuthorUsername = message.author.username;
-              }
+              const qrlWal = wallet.CreateQRLWallet;
+              const WalletPromise = qrlWal();
+              WalletPromise.then(function(address) {
+                const QRLaddress = JSON.parse(address);
+                const discord_id = '@' + MessageAuthorID;
+                const wallet_pub = QRLaddress.address;
+                faucetBalance().then(function(faucBal) {
+                  if (dripamt > faucBal.balance) {
+                    dripamt = 0;
+                  }
 
-              const userInfo = { service: 'discord', service_id: discord_id, user_name: MessageAuthorUsername, wallet_pub: wallet_pub, wallet_bal: 0, user_key: salt, user_auto_created: false, auto_create_date: new Date(), opt_out: false, optout_date: new Date(), drip_amt: dripamt, faucet_bal: faucBal.balance };
-              return userInfo;
-            }).then(function(userInfo) {
-            // add user to the database and create an account
-              const AddUserPromise = addUser(userInfo);
-              AddUserPromise.then(function(addUserResp) {
-                const response = JSON.stringify(addUserResp);
-                console.log('AddUserPromise response: ' + response);
-                const fee = toShor(config.wallet.tx_fee);
-                const future_tip_amount = addUserResp[3].future_tip_amount - fee;
-                if (future_tip_amount > 0) {
-                  const tipToArray = [];
-                  const tipToAddress = [userInfo.wallet_pub];
-                  tipToArray.push(userInfo);
-                  const futureTipPretty = toQuanta(future_tip_amount);
-                  const future_tip = { amount: future_tip_amount, fee: fee, address_from: config.wallet.hold_address, address_to: tipToAddress };
-                  const send_future_tip = wallet.sendQuanta;
-                  send_future_tip(future_tip).then(function(futureTip) {
-                    const futureTipOut = JSON.parse(futureTip);
-                    const tx_hash = futureTipOut.tx.transaction_hash;
-                    ReplyMessage('Someone sent a tip before you signed up!\n`' + futureTipPretty + ' qrl` on the way, look for them once the transaction is confirmed by the network. `' + config.discord.prefix + 'bal` to check your wallet balance.');
-                    // write to transactions db
-                    const tip_id = 1337;
-                    const txInfo = { tip_id: tip_id, tx_hash: tx_hash, tx_type: 'tip' };
-                    const addTransactionPromise = addTransaction(txInfo);
-                    addTransactionPromise.then(function(txRes) {
-                      return txRes;
-                    });
-                    const futureClear = { service_id: userInfo.service_id };
-                    const clearFutureTips = dbHelper.newUserClearFutureTips;
-                    clearFutureTips(futureClear).then(function(clearRes) {
-                      return clearRes;
-                    });
-                  });
-                }
-                return response;
-              }).then(function(userresponse) {
-                const userAddress = userInfo.wallet_pub;
-                const embed = new Discord.MessageEmbed()
-                  .setColor(0x000000)
-                  .setTitle('**TipBot Account Info**')
-                  .setDescription('Here is your TipBot account information.')
-                  .setFooter('  .: Tipbot provided by The QRL Contributors :.')
-                  .addField('Your QRL Wallet Public Address::', '[' + userAddress + '](' + config.bot_details.explorer_url + '/a/' + userAddress + ')')
-                  .setImage(userInfo.wallet_qr)
-                  // eslint-disable-next-line
+                  // test username for valid char and if not valid use default from above
+                  const usernameCheck = discordHelpers.CheckValidChars(message.author.username);
+                  if (usernameCheck) {
+                    MessageAuthorUsername = 'haxerFromDiscord';
+                  }
+                  else {
+                    MessageAuthorUsername = message.author.username;
+                  }
+
+                  const userInfo = { service: 'discord', service_id: discord_id, user_name: MessageAuthorUsername, wallet_pub: wallet_pub, wallet_bal: 0, user_key: salt, user_auto_created: false, auto_create_date: new Date(), opt_out: false, optout_date: new Date(), drip_amt: dripamt, faucet_bal: faucBal.balance };
+                  return userInfo;
+                }).then(function(userInfo) {
+                // add user to the database and create an account
+                  const AddUserPromise = addUser(userInfo);
+                  AddUserPromise.then(function(addUserResp) {
+                    const response = JSON.stringify(addUserResp);
+                    console.log('AddUserPromise response: ' + response);
+                    const fee = toShor(config.wallet.tx_fee);
+                    const future_tip_amount = addUserResp[3].future_tip_amount - fee;
+                    if (future_tip_amount > 0) {
+                      const tipToArray = [];
+                      const tipToAddress = [userInfo.wallet_pub];
+                      tipToArray.push(userInfo);
+                      const futureTipPretty = toQuanta(future_tip_amount);
+                      const future_tip = { amount: future_tip_amount, fee: fee, address_from: config.wallet.hold_address, address_to: tipToAddress };
+                      const send_future_tip = wallet.sendQuanta;
+                      send_future_tip(future_tip).then(function(futureTip) {
+                        const futureTipOut = JSON.parse(futureTip);
+                        const tx_hash = futureTipOut.tx.transaction_hash;
+                        ReplyMessage('Someone sent a tip before you signed up!\n`' + futureTipPretty + ' qrl` on the way, look for them once the transaction is confirmed by the network. `' + config.discord.prefix + 'bal` to check your wallet balance.');
+                        // write to transactions db
+                        const tip_id = 1337;
+                        const txInfo = { tip_id: tip_id, tx_hash: tx_hash, tx_type: 'tip' };
+                        const addTransactionPromise = addTransaction(txInfo);
+                        addTransactionPromise.then(function(txRes) {
+                          return txRes;
+                        });
+                        const futureClear = { service_id: userInfo.service_id };
+                        const clearFutureTips = dbHelper.newUserClearFutureTips;
+                        clearFutureTips(futureClear).then(function(clearRes) {
+                          return clearRes;
+                        });
+                      });
+                    }
+                    return response;
+                  }).then(function(userresponse) {
+                    const userAddress = userInfo.wallet_pub;
+                    const embed = new Discord.MessageEmbed()
+                      .setColor(0x000000)
+                      .setTitle('**TipBot Account Info**')
+                      .setDescription('Here is your TipBot account information.')
+                      .setFooter('  .: Tipbot provided by The QRL Contributors :.')
+                      .addField('Your QRL Wallet Public Address::', '[' + userAddress + '](' + config.bot_details.explorer_url + '/a/' + userAddress + ')')
+                      .setImage(userInfo.wallet_qr)
+                    // eslint-disable-next-line
                   .addField('**Bonus!** You\'ll receive some Quanta from the faucet. \**Faucet payments can take up to 5 min to reflect in a users wallet*', '`' + dripamt + ' qrl` faucet payout')
-                  .addField('For all of my commands:\t', '`' + config.discord.prefix + 'help`. It will take a few minutes for your wallet to be created.')
-                  .addField('You must agree to my terms:', 'Enter `' + config.discord.prefix + 'terms` to read the details and `' + config.discord.prefix + 'agree` to start using the tipbot');
-                message.author.send({ embed })
+                      .addField('For all of my commands:\t', '`' + config.discord.prefix + 'help`. It will take a few minutes for your wallet to be created.')
+                      .addField('You must agree to my terms:', 'Enter `' + config.discord.prefix + 'terms` to read the details and `' + config.discord.prefix + 'agree` to start using the tipbot');
+                    message.author.send({ embed })
 
-                  .catch(e => {
-                    ErrorMessage({ error: e.message, description: 'It seems you have DM\'s blocked, please enable DM\'s for this server...\n'});
-                  }).then(() => {
-                    message.author.send(`
+                      .catch(e => {
+                        ErrorMessage({ error: e.message, description: 'It seems you have DM\'s blocked, please enable DM\'s for this server...\n'});
+                      }).then(() => {
+                        message.author.send(`
 __**TipBot Terms and Conditions**__
 :small_orange_diamond: Use of this TipBot and any function it may provide to you, as the user, is at your risk.
 :small_orange_diamond: By using this service you agree to not hold liable, for any reasons, the owner, operators, or any affiliates of the QRL TipBot or anyone associated with this service.
@@ -227,10 +238,10 @@ __**TipBot Terms and Conditions**__
 __**You assume all risk by using this service**__
 
                     `)
-                      .catch(e => {
-                        ErrorMessage({ error: e.message, description: 'It seems you have DM\'s blocked, please enable DM\'s for this server...\n'});
-                      }).then(function() {
-                        message.author.send(`
+                          .catch(e => {
+                            ErrorMessage({ error: e.message, description: 'It seems you have DM\'s blocked, please enable DM\'s for this server...\n'});
+                          }).then(function() {
+                            message.author.send(`
 :exclamation: __**RULES**__ :exclamation:
 :diamond_shape_with_a_dot_inside: *All tips are final once sent.*
 :diamond_shape_with_a_dot_inside: *Tips will never be refunded or returned to a user, for any reason.*
@@ -245,21 +256,23 @@ __**You assume all risk by using this service**__
 
 **You must \`${config.discord.prefix}agree\` with these terms to use the bot!**
                     `);
+                          })
+                          .catch(e => {
+                            ErrorMessage({ error: e.message, description: 'It seems you have DM\'s blocked, please enable DM\'s for this server...\n'});
+                          });
+                        ReplyMessage(':white_check_mark: You\'re signed up! A small drip from the faucet is on it\'s way to your new tipbot wallet. Thanks for being a part of this community!', message);
                       })
-                      .catch(e => {
-                        ErrorMessage({ error: e.message, description: 'It seems you have DM\'s blocked, please enable DM\'s for this server...\n'});
+                      .catch(error => {
+                        console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
+                        ErrorMessage({ error: error.message, description: 'It seems you have DM\'s blocked, please enable DM\'s for this server...\n'});
                       });
-                    ReplyMessage(':white_check_mark: You\'re signed up! A small drip from the faucet is on it\'s way to your new tipbot wallet. Thanks for being a part of this community!', message);
-                  })
-                  .catch(error => {
-                    console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
-                    ErrorMessage({ error: error.message, description: 'It seems you have DM\'s blocked, please enable DM\'s for this server...\n'});
+                    message.react('🇶')
+                      .then(() => message.react('🇷'))
+                      .then(() => message.react('🇱'))
+                      .catch(() => console.error('One of the emojis failed to react.'));
+                    return userresponse;
                   });
-                message.react('🇶')
-                  .then(() => message.react('🇷'))
-                  .then(() => message.react('🇱'))
-                  .catch(() => console.error('One of the emojis failed to react.'));
-                return userresponse;
+                });
               });
             });
           });

@@ -870,6 +870,57 @@ async function addWallet(args) {
   });
 }
 
+async function addedUser(args) {
+  return new Promise(resolve => {
+    // expects { service_id: servceiUUID, service: service }
+    const addedUserValues = [ [args.service_id, args.service, new Date()] ];
+    const addedUserInsert = 'INSERT INTO wallets(user_id, wallet_pub, time_stamp, updated_at) VALUES ?';
+    callmysql.query(addedUserInsert, [addedUserValues], function(err, result) {
+      if (err) {
+        console.log('[mysql error]', err);
+      }
+      resolve(result);
+    });
+  });
+}
+
+
+async function checkAddedUser(args) {
+  return new Promise(resolve => {
+    // expects { service_id: servceiUUID, service: service }
+    let found = false;
+    const array = [];
+    // service_id and service
+    const searchDB = 'SELECT * FROM addeddUsers WHERE  service_id = "' + args.service_id + '" AND service = "' + args.service + '"';
+    callmysql.query(searchDB, function(err, result) {
+      if (err) {
+        console.log('[mysql error]', err);
+      }
+      if (result.length === 0) {
+        array.push({ found: found });
+        resolve(array);
+        return;
+      }
+      else {
+        // User found, don't add them again
+        found = true;
+        array.push({ found: found });
+        resolve(array);
+      }
+    });
+
+
+    const addedUserValues = [ [args.service_id, args.service, new Date()] ];
+    const addedUserInsert = 'INSERT INTO wallets(user_id, wallet_pub, time_stamp, updated_at) VALUES ?';
+    callmysql.query(addedUserInsert, [addedUserValues], function(err, result) {
+      if (err) {
+        console.log('[mysql error]', err);
+      }
+      resolve(result);
+    });
+  });
+}
+
 module.exports = {
   GetAllUserInfo : GetAllUserInfo,
   CheckUser : CheckUser,
@@ -880,6 +931,8 @@ module.exports = {
   GetUserWalletBal : GetUserWalletBal,
   GetUserWalletQR : GetUserWalletQR,
   AddUser : AddUser,
+  addedUser : addedUser,
+  checkAddedUser : checkAddedUser,
   AddWalletQR: AddWalletQR,
   OptOut : OptOut,
   OptIn : OptIn,

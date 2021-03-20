@@ -449,8 +449,8 @@ callmysql.connect(function(err) {
     }
   });
 
-// Create the 'user_agree' table to store to users info from Twitter
-const createUserAgree = `create table if not exists users_agree(
+  // Create the 'user_agree' table to store to users info from Twitter
+  const createUserAgree = `create table if not exists users_agree(
                           id int primary key auto_increment,
                           user_id int not null,
                           agree BOOLEAN not null,
@@ -472,7 +472,7 @@ const createUserAgree = `create table if not exists users_agree(
       console.log(chalk.red('! ') + chalk.bgRed('Something else happened with createUserAgree...') + chalk.grey(' SQL warningCount: ' + results.warningCount));
     }
   });
-    // Create the 'withdrawls' table to store to users info from Twitter
+  // Create the 'withdrawls' table to store to users info from Twitter
   const createWithdrawls = `create table if not exists withdrawls(
                                 id int primary key auto_increment,
                                 user_id int not null,
@@ -500,7 +500,7 @@ const createUserAgree = `create table if not exists users_agree(
     }
   });
   // Create the 'fauccet_payouts' table to store to users info from Twitter
-    const createFaucetPayouts = `create table if not exists faucet_payouts(
+  const createFaucetPayouts = `create table if not exists faucet_payouts(
                                 id int primary key auto_increment,
                                 user_id int not null,
                                 service ENUM('discord', 'keybase', 'github', 'reddit', 'trello', 'twitter', 'slack', 'telegram', 'whatsapp'),
@@ -527,6 +527,32 @@ const createUserAgree = `create table if not exists users_agree(
       console.log(chalk.red('! ') + chalk.bgRed('Something else happened with createFaucetPayouts...') + chalk.grey(' SQL warningCount: ' + results.warningCount));
     }
   });
+
+
+  // create `users_info` table to store various user account data
+  const addedUserTable = `create table if not exists addedUserTable(
+                          id int primary key auto_increment,
+                          service_id varchar(255) null,
+                          service ENUM('discord', 'keybase', 'github', 'reddit', 'trello', 'twitter', 'slack', 'telegram', 'whatsapp'),
+                          timestamp DATETIME not null
+                      )`;
+  callmysql.query(addedUserTable, function(err, results) {
+    if (err) {
+      console.log(chalk.red('! ') + chalk.bgRed(err.message));
+    }
+    // log the output of sql command
+    if (results.warningCount == '0') {
+      console.log(chalk.cyan(' ✔ ') + chalk.blue(' addedUserTable results: ') + chalk.green(' SQL Table created!'));
+    }
+    else if (results.warningCount == '1') {
+      console.log(chalk.yellow(' ⚠ ') + chalk.blue(' addedUserTable results: ') + chalk.grey(' Table exists'));
+    }
+    else {
+      console.log(chalk.red('! ') + chalk.bgRed('Something else happened with addedUserTable...') + chalk.grey(' SQL warningCount: ' + results.warningCount));
+    }
+  });
+
+  // ///////////////////////////// end /////////////////////////////
 
   // close the sql connection
   callmysql.end(function(err) {
