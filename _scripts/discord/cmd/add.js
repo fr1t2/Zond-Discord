@@ -134,10 +134,10 @@ module.exports = {
           return output;
         }
         else if (found === 'false') {
-          const checkAddedUser = dbHelper.checkAddedUser;
-          const checkAddedUserpromise = checkAddedUser(user_info);
+          const checkAddedUser = dbHelper.checkAddedUser();
+          const checkAddedUserpromise = checkAddedUser({ service_id: `'@'${MessageAuthorID}`, service: 'discord' });
 
-          checkAddedUserpromise().then(function(userPending){
+          checkAddedUserpromise.then(function(userPending){
             if (userPending) {
               // user has already signed up and a wallet is being generated
               ReplyMessage('Please be patient, I have to generate your keys...');
