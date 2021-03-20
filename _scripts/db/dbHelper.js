@@ -874,7 +874,8 @@ async function addedUser(args) {
   return new Promise(resolve => {
     // expects { service_id: servceiUUID, service: service }
     const addedUserValues = [ [args.service_id, args.service, new Date()] ];
-    const addedUserInsert = 'INSERT INTO wallets(user_id, wallet_pub, time_stamp, updated_at) VALUES ?';
+
+    const addedUserInsert = 'INSERT INTO addedUserTable(service_id, service, time_stamp) VALUES ?';
     callmysql.query(addedUserInsert, [addedUserValues], function(err, result) {
       if (err) {
         console.log('[mysql error]', err);
@@ -891,7 +892,7 @@ async function checkAddedUser(args) {
     let found = false;
     const array = [];
     // service_id and service
-    const searchDB = 'SELECT * FROM addeddUsers WHERE  service_id = "' + args.service_id + '" AND service = "' + args.service + '"';
+    const searchDB = 'SELECT * FROM addedUserTable WHERE  service_id = "' + args.service_id + '" AND service = "' + args.service + '"';
     callmysql.query(searchDB, function(err, result) {
       if (err) {
         console.log('[mysql error]', err);
