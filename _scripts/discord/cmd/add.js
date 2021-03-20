@@ -25,7 +25,7 @@ module.exports = {
     const userName = username.slice(1, -1);
     const user_info = { service: 'discord', user_id: userName };
     const checkUserpromise = checkUser(user_info);
-    const checkAddedUserpromise = checkUser(user_info);
+    const checkAddedUserpromise = dbHelper.checkAddedUser(user_info);
     const getBalance = wallet.GetBalance;
 
 
