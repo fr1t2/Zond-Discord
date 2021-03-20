@@ -5,7 +5,7 @@ module.exports = {
   aliases: ['join', 'signup', 'su', 'Add', 'ADD'],
   guildOnly: false,
   usage: '',
-  cooldown: 2,
+  cooldown: 20,
 
   execute(message, args) {
     const Discord = require('discord.js');
