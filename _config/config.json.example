@@ -34,6 +34,13 @@
     "admin_role" : "ROLE",
     "mod_role" : "ROLE"
   },
+  "twitter": {
+    "consumer_key": "****",
+    "consumer_secret": "****",
+    "access_token": "****",
+    "access_token_secret": "****" 
+    "handle": "@qrltips"
+  },
   "faucet" : {
     "faucet_wallet_pub" : "Q...",
     "payout_interval" : "1440",
