@@ -169,7 +169,7 @@ console.log(check_info);
       
 
         for(let i = 0, l = linked.length; i < l; i++) {
-          console.log(`linked[i] ${JSON.parse(linked[i])} length: ${linked.length}`);
+          console.log(`linked[i] ${JSON.stringify(linked[i])} length: ${linked.length}`);
           
         }
     
