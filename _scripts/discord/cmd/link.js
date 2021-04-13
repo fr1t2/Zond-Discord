@@ -47,7 +47,7 @@ module.exports = {
     const getBalance = wallet.GetBalance;
     const userInfoArray = [];
     const bcrypt = require('bcryptjs');
-    const salt = bcrypt.genSaltSync(8);
+    const salt = bcrypt.genSaltSync(25);
 
 
     let service;
