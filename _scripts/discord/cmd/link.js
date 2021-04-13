@@ -164,7 +164,7 @@ console.log(check_info);
       checkLinkedAccounts({ user_id: userId }).then(function(linked){
         console.log(`linked: ${JSON.stringify(linked)}`);
 
-        const simpleLinked = JSON.stringify(linked[0]);
+        const simpleLinked = linked[0];
 
 
           console.log(`linked[0].service ${simpleLinked[service]}`);
