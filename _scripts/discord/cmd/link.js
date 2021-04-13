@@ -47,12 +47,12 @@ module.exports = {
     const getBalance = wallet.GetBalance;
     const userInfoArray = [];
     const bcrypt = require('bcryptjs');
-    const salt = bcrypt.genSaltSync(25);
+    const salt = bcrypt.genSaltSync(10);
     const pw = Math.random().toString(36).substring(7);
     console.log(`pw: ${pw}`);
-    const hash = bcrypt.hashSync(`"${pw}"`, salt);
+    const hash = bcrypt.hashSync(`${pw}`, salt);
     console.log(`hash: ${hash}`);
-    
+
 
     let service;
     let serviceIndex;
