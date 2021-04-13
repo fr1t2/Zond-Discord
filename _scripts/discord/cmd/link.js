@@ -161,7 +161,7 @@ console.log(check_info);
       console.log(JSON.stringify(userInfo));
       const userId = userInfo[0][0].user_id;
       // check if user has ${service} already linked
-      checkLinkedAccounts(userId).then(function(linked){
+      checkLinkedAccounts({ user_id: userId }).then(function(linked){
         console.log(`linked: ${JSON.stringify(linked)}`);
       });
 
