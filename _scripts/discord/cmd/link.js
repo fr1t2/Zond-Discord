@@ -165,10 +165,6 @@ console.log(check_info);
         console.log(`linked: ${JSON.stringify(linked)}`);
 
 
-        const linkedIndex = (linked[0]).indexOf(service);
-        if (linkedIndex) {
-          console.log(`service Found ${linkedIndex}`);
-        }
 
 
         for(let i = 0, l = (linked[0]).length; i < l; i++) {
