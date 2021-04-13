@@ -166,6 +166,11 @@ console.log(check_info);
 
 
 
+        if (linked[0].service === 1) {
+          console.log('service found');
+        }
+
+
 
         for(let i = 0, l = (linked[0]).length; i < l; i++) {
           console.log(`linked[i] ${JSON.stringify(linked[i])}`);
