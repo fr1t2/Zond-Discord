@@ -86,6 +86,26 @@ async function GetAllUserInfo(args) {
   });
 }
 
+
+async function CheckLinkedAccounts(args) {
+  /*
+  i.e.: { user_id: userID }
+  returns users table entry
+  */
+  return new Promise(resolve => {
+    const searchDB = 'SELECT * FROM users WHERE  id = "' + args.user_id + '"';
+    callmysql.query(searchDB, function(err, result) {
+      if (err) {
+        console.log('[mysql error]', err);
+      }
+      resolve(result);
+    });
+
+
+  });
+}
+
+
 async function CheckUser(args) {
   /*
   Check for the user in users database
@@ -891,6 +911,7 @@ module.exports = {
   CheckUser : CheckUser,
   CheckUserOptOut : CheckUserOptOut,
   CheckUserSignup : CheckUserSignup,
+  CheckLinkedAccounts : CheckLinkedAccounts,
   GetUserID : GetUserID,
   GetUserWalletPub : GetUserWalletPub,
   GetUserWalletBal : GetUserWalletBal,

@@ -44,16 +44,18 @@ module.exports = {
     const uuid = `${message.author}`;
     const service_id = uuid.slice(1, -1);
     const GetAllUserInfo = dbHelper.GetAllUserInfo;
+    const checkLinkedAccounts = dbHelper.CheckLinkedAccounts;
     const getBalance = wallet.GetBalance;
     const userInfoArray = [];
     const bcrypt = require('bcryptjs');
     const salt = bcrypt.genSaltSync(10);
+console.log(`user Salt: ${salt}`);
     const pw = Math.random().toString(36).substring(7);
-    console.log(`pw: ${pw}`);
-    const hash = bcrypt.hashSync(pw, salt);
-    console.log(`hash: ${hash}`);
-    const verify = bcrypt.compareSync(pw, hash);
-    console.log(`verify ${verify}`);
+console.log(`pw: ${pw}`); // send this to the user
+    const hash = bcrypt.hashSync(pw, salt); // store this in the database
+console.log(`hash: ${hash}`);
+    // const verify = bcrypt.compareSync(pw, hash); // verify the given pw matches using hash. Crypto is amazing
+    // console.log(`verify ${verify}`);
 
     let service;
     let serviceIndex;
@@ -157,9 +159,11 @@ console.log(check_info);
     // check on user here in discord, if not found, opt-out, not agreed, or banned... fail
     checkUser(service_id).then(function(userInfo) {
       console.log(JSON.stringify(userInfo));
-      // user found, get random data and create salt
-      console.log(`user Salt: ${salt}`);
-
+      const userId = userInfo[0][0].user_id;
+      // check if user has ${service} already linked
+      checkLinkedAccounts(userId).then(function(linked){
+        console.log(`linked: ${JSON.stringify(linked)}`);
+      });
 
 
 
