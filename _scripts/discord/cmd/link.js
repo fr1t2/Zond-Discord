@@ -164,12 +164,13 @@ console.log(check_info);
       checkLinkedAccounts({ user_id: userId }).then(function(linked){
         console.log(`linked: ${JSON.stringify(linked)}`);
 
-
+        const simpleLinked = linked[0];
+          console.log(`simpleLinked ${JSON.stringify(simpleLinked)} length: ${simpleLinked.length}`);
 
       
 
         for(let i = 0, l = linked.length; i < l; i++) {
-          console.log(`linked[i] ${JSON.stringify(linked[i])} length: ${linked.length}`);
+          console.log(`linked[i] ${JSON.stringify(linked[i])} length: ${linked[i].length}`);
           
         }
     
