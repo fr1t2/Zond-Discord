@@ -166,7 +166,7 @@ console.log(check_info);
 
 
 
-        if (linked[0].service === 1) {
+        if (linked[0].service == 1) {
           console.log('service found');
         }
 
