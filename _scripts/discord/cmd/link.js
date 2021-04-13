@@ -165,7 +165,7 @@ console.log(check_info);
         console.log(`linked: ${JSON.stringify(linked)}`);
         const linkedIndex = linked.indexOf(service);
         if (linkedIndex) {
-          console.log('service Found');
+          console.log(`service Found ${linkedIndex}`);
         }
 
 
