@@ -165,17 +165,11 @@ console.log(check_info);
         console.log(`linked: ${JSON.stringify(linked)}`);
 
         const simpleLinked = linked[0];
-
-
+        if (simpleLinked[service]) {
           console.log(`linked[0].service ${simpleLinked[service]}`);
-
-      
-
-        for(let i = 0, l = linked.length; i < l; i++) {
-          console.log(`linked[i] ${JSON.stringify(linked[i])} length: ${linked[i].length}`);
-          
         }
-    
+
+
       });
 
 
