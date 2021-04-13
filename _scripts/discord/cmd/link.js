@@ -166,11 +166,7 @@ console.log(check_info);
 
 
 
-        if (linked[0]. == 1) {
-          console.log('service found');
-        }
-
-
+      
 
         for(let i = 0, l = (linked[0]).length; i < l; i++) {
           console.log(`linked[i] ${JSON.parse(linked[i])} length: ${linked[0]).length}`);
