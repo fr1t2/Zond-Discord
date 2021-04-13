@@ -93,7 +93,7 @@ async function CheckLinkedAccounts(args) {
   returns users table entry
   */
   return new Promise(resolve => {
-    const searchDB = 'SELECT * FROM users WHERE  id = "' + args.user_id + '"';
+    const searchDB = 'SELECT users.discord_user_id AS discord, users.keybase_user_id AS keybase, users.github_user_id AS github, users.reddit_user_id AS reddit, users.trello_user_id AS trello, users.twitter_user_id AS twitter, users.slack_user_id AS slack, users.telegram_user_id AS telegram, users.whatsapp_user_id AS whatsapp FROM users WHERE  id = "' + args.user_id + '"';
     callmysql.query(searchDB, function(err, result) {
       if (err) {
         console.log('[mysql error]', err);
