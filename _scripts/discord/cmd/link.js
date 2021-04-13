@@ -79,6 +79,7 @@ module.exports = {
     async function checkUser(user) {
       return new Promise(resolve => {
         const check_info = { service: 'discord', service_id: user };
+console.log(check_info);
         const checkPromise = GetAllUserInfo(check_info);
         // fail from the start
         let checkUserPassed = false;
