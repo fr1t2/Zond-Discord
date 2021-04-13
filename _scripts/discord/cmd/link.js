@@ -126,7 +126,7 @@ module.exports = {
     // ////////////
     // checks
     // ////////////
-
+    console.log(`args: ${args}\nmessage: ${message}`);
     // get service or fail
     for(let i = 0, l = args.length; i < l; i++) {
       console.log(args[i]);
@@ -140,11 +140,13 @@ module.exports = {
     // did service get set?
     if (!service){
       errorMessage({ error: 'Service Not Given...', description: 'You must give a service to link. `+link twitter @USERNAME`' });
+      return;
     }
     // did user send a linked user name for the new service
     if (!args[2]) {
       // not enough args given...
       errorMessage({ error: 'Linked user Not Given...', description: 'You must give a user name to link. `+link twitter @USERNAME`' });
+      return;
     }
     // check on user here in discord, if not found, opt-out, not agreed, or banned... fail
     checkUser(service_id).then(function(userInfo) {
