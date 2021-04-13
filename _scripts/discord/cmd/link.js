@@ -52,6 +52,7 @@ module.exports = {
     console.log(`pw: ${pw}`);
     const hash = bcrypt.hashSync(`"${pw}"`, salt);
     console.log(`hash: ${hash}`);
+    
 
     let service;
     let serviceIndex;
