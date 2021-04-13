@@ -126,7 +126,7 @@ module.exports = {
     // ////////////
     // checks
     // ////////////
-    console.log(`args: ${JSON.stringify(args)}\nargs.length: ${args.length}\nmessage: ${message}`);
+    console.log(`args: ${JSON.stringify(args)}\nargs.length: ${args.length}\nmessage: ${message}\nservices: ${config.services}`);
     // get service or fail
     for(let i = 0, l = args.length; i < l; i++) {
       console.log(args[i]);
