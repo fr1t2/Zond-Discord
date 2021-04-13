@@ -163,6 +163,12 @@ console.log(check_info);
       // check if user has ${service} already linked
       checkLinkedAccounts({ user_id: userId }).then(function(linked){
         console.log(`linked: ${JSON.stringify(linked)}`);
+        const linkedIndex = linked[0].indexOf(service);
+        if (linkedIndex) {
+          console.log('service Found');
+        }
+
+
         for(let i = 0, l = linked.length; i < l; i++) {
           console.log(`linked[i] ${JSON.stringify(linked[i])}`);
           
