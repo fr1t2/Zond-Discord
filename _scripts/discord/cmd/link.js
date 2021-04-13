@@ -135,7 +135,6 @@ console.log(check_info);
       console.log(`serviceIndex: ${serviceIndex}`);
       if (serviceIndex) {
         service = args[i];
-        return service;
       }
     }
     // did service get set?
