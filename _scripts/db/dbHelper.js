@@ -77,7 +77,7 @@ async function GetAllUserInfo(args) {
         GetUserWalletBal({ user_id: user_id }).then(function(balance) {
           // check for pending tx's
           const wallet_bal = balance.wallet_bal;
-          foundResArray.push({ user_found: has_user_found, user_agree: has_user_agree, opt_out: has_opt_out, wallet_pub: wallet_pub, wallet_bal: wallet_bal, user_id: U_id, user_name: user_name, optout_date: optout_date, pending: pendingBal });
+          foundResArray.push({ user_found: has_user_found, user_agree: has_user_agree, opt_out: has_opt_out, wallet_pub: wallet_pub, wallet_bal: wallet_bal, user_id: U_id, user_name: user_name, optout_date: optout_date, pending: pendingBal, userInfo: { user_info } });
           resolve(foundResArray);
           return foundResArray;
         });
