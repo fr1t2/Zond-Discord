@@ -50,9 +50,10 @@ module.exports = {
     const salt = bcrypt.genSaltSync(10);
     const pw = Math.random().toString(36).substring(7);
     console.log(`pw: ${pw}`);
-    const hash = bcrypt.hashSync(`${pw}`, salt);
+    const hash = bcrypt.hashSync(pw, salt);
     console.log(`hash: ${hash}`);
-
+    const verify = bcrypt.compareSync(pw, hash);
+    console.log(`verify ${verify}`);
 
     let service;
     let serviceIndex;
