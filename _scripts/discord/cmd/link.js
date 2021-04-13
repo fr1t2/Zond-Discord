@@ -48,7 +48,9 @@ module.exports = {
     const userInfoArray = [];
     const bcrypt = require('bcryptjs');
     const salt = bcrypt.genSaltSync(25);
-
+    const pw = Math.random().toString(36).slice(2);
+    const hash = bcrypt.hashSync(pw, salt);
+    console.log(`pw: ${pw}\nhash: ${hash}`);
 
     let service;
     let serviceIndex;
