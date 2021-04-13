@@ -167,7 +167,7 @@ console.log(check_info);
         const simpleLinked = JSON.stringify(linked[0]);
 
 
-          console.log(`linked[0].service ${linked[0].service}`);
+          console.log(`linked[0].service ${simpleLinked.service}`);
 
       
 
