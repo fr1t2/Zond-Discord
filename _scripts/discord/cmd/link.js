@@ -130,12 +130,12 @@ console.log(check_info);
     console.log(`args: ${JSON.stringify(args)}\nargs.length: ${args.length}\nmessage: ${message}\nservices: ${config.services}`);
     // get service or fail
     for(let i = 0, l = args.length; i < l; i++) {
-      console.log(args[i]);
+      console.log(`args[i]: ${args[i]}`);
       serviceIndex = (config.services.indexOf(args[i]) > -1);
       console.log(`serviceIndex: ${serviceIndex}`);
       if (serviceIndex) {
         service = args[i];
-        continue;
+        break;
       }
     }
     // did service get set?
@@ -144,7 +144,7 @@ console.log(check_info);
       return;
     }
     // did user send a linked user name for the new service
-    if (!args[2]) {
+    if (!args[1]) {
       // not enough args given...
       errorMessage({ error: 'Linked user Not Given...', description: 'You must give a user name to link. `+link twitter @USERNAME`' });
       return;
