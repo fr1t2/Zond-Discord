@@ -606,7 +606,6 @@ async function addTip(args) {
     const addTipResultsArray = [];
     // const trans_id = '3333333';
     const from_user_id = args.from_user_id;
-    const to_users_id = args.to_users_id
     const tip_amount = args.tip_amount;
     const from_service = args.from_service;
     const time_stamp = args.time_stamp;
