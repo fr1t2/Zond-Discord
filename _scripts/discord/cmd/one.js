@@ -314,7 +314,8 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
               // if so return the users data in a csv
               return;
             }
-
+            else if ( message.channel.type == 'dm' && args[0] == "verify" && (uuid != config.plusone.plusone_admin || !message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) ) ) {
+            }
             if (plusOneCheck.plusone_found === "true") {
               // User is found in the table and has been paid previously
 
