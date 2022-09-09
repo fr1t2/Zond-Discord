@@ -126,7 +126,7 @@ module.exports = {
 
 
     // check if this is a DM and if so, block forcing user into the chat room
-    if (message.channel.type === 'dm') {
+    if (message.channel.type === 'dm' && !args[0] === "verify") {
       errorMessage({ error: 'Can\'t access +one from DM!', description: 'Please try again from the QRL Discord Server, this function will only work there.' });
       return;
     }
@@ -298,9 +298,11 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
           if (!userArray[0][1].checkUserPassed) {
             return
           }
-
+          console.log('userID:  ' + userArray[0][0][0].user_id)
           checkPlusOne(userArray[0][0][0].user_id).then(function(plusOneCheck) {
+            
             console.log(JSON.stringify(plusOneCheck));
+            
             if ( message.channel.type == 'dm' && args[0] == "verify" && (uuid == config.plusone.plusone_admin || message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) ) ) {
 
 
@@ -317,18 +319,17 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
             }
             else {
               // Not authorized message sent with generic response
-
-
+              errorMessage({ error: 'Not Authorized!', description: 'You do not have permission for this command.' });
             }
 
-            if (plusOneCheck.plusone_found) {
+            if (plusOneCheck.plusone_found === "true") {
               // User is found in the table and has been paid previously
 
               if (args[0] == "key" || args[0] == "Key" || args[0] == "onekey") {
                 // regenerate a key and send the details
               }
 
-              oneErrorMessage({ error: 'User Received One QRL Previously', description: '<@' + message.author + '>, you have signed registered and received your payout already, one per user.' });
+              oneErrorMessage({ error: 'User Received One QRL Previously', description: '<@' + message.author + '>, you have signed up and received your payout already, one per user.' });
               const embed = new Discord.MessageEmbed()
                 .setColor(0x000000)
                 .setTitle('Plus One Information')
