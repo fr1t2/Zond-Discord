@@ -96,7 +96,7 @@ async function InsertPlusOne(args) {
     const user_id = args.user_id;
     const service = args.service;
     const one_key = args.one_key;
-    const one_amt = args.one_key;
+    const one_amt = args.one_amt;
     let date = '';
     if (args.date) {
       date = args.date;
