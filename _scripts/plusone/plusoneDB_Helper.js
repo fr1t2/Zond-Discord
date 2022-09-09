@@ -37,8 +37,6 @@ async function CountPlusOneSignup() {
         resultsArray.push({ error: err });
         resolve(resultsArray);
       }
-
-      console.log('CountPlusOneSignup result: ' + JSON.stringify(result))
       
       resultsArray.push(result[0].Cardinality);
       resolve(resultsArray);
