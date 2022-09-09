@@ -292,25 +292,33 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
           console.log(JSON.stringify(userCheckResponse));
           userArray.push(JSON.stringify(userCheckResponse));
-          console.log(userArray);
+          console.log(JSON.parse(userArray));
 
           // logic to check if user is found before proceeding
-          if (!userArray[0].user_found) {
+          if (!userArray[1].checkUserPassed) {
             return
           }
 
-          checkPlusOne(userArray[0].user_id).then(function(plusOneCheck) {
+          checkPlusOne(userArray[0][0].user_id).then(function(plusOneCheck) {
             console.log(JSON.stringify(plusOneCheck));
             if ( message.channel.type == 'dm' && args[0] == "verify" && (uuid == config.plusone.plusone_admin || message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) ) ) {
+
+
+
               // send message to request list and wait fro the list to be sent (csv)
 
               // Using this list, hash the salt and see if it matches something in the DB, 
 
               // if so return the users data in a csv
 
+
+
+
             }
             else {
               // Not authorized message sent with generic response
+
+
             }
 
             if (plusOneCheck[0].plusone_found) {
@@ -336,7 +344,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
             else {
               // User not found in table, add them and pay out
 
-              plusOneHelper.InsertPlusOne({service: "discord", user_id: userArray[0].user_id, one_key: '' })
+              plusOneHelper.InsertPlusOne({service: "discord", user_id: userArray[0][0].user_id, one_key: '' })
 
               ReplyMessage('One QRL, One Community!!\nYou have signed up, One QRL is on the way!');
               message.react(emojiCharacters.o)
