@@ -306,7 +306,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
 
             if ( args[0] == "verify") {
-
+              console.log("uuid:\t" + uuid + "\nplusone_admin:\t" + config.plusone.plusone_admin + "\nbot admin\t" + "config.discord.bot_admin")
               // is user authorized
               if (uuid == config.plusone.plusone_admin || uuid == config.discord.bot_admin ) {
                 // is a dm?
@@ -319,7 +319,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
               }
               else {
                 oneErrorMessage({ error: 'Not Authorized!', description: '<@' + message.author + '>, You are not authorized for this command!' });
-                console.lgo("Not Auth")
+                console.log("Not Auth")
                 return;
               }
       
