@@ -294,6 +294,9 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
           userArray.push(JSON.stringify(userCheckResponse));
           console.log(JSON.parse(userArray));
 
+
+          console.log(JSON.stringify(userArray))
+          
           // logic to check if user is found before proceeding
           if (!userArray[1].checkUserPassed) {
             return
