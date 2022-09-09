@@ -75,8 +75,8 @@ module.exports = {
           .then(msg => {
             setTimeout(() => msg.delete(), 10000)
           })
-          message.channel.stopTyping(true);
           .catch( );
+        message.channel.stopTyping(true);
       }, 500);
     }
 
