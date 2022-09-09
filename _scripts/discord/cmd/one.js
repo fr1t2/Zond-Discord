@@ -306,9 +306,9 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
 
             if ( args[0] == "verify") {
-              console.log("uuid:\t" + uuid + "\nplusone_admin:\t" + config.plusone.plusone_admin + "\nbot admin\t" + "config.discord.bot_admin")
+              console.log("uuid:\t" + service_id + "\nplusone_admin:\t" + config.plusone.plusone_admin + "\nbot admin\t" + config.discord.bot_admin)
               // is user authorized
-              if (uuid == config.plusone.plusone_admin || uuid == config.discord.bot_admin ) {
+              if (service_id == config.plusone.plusone_admin || service_id == config.discord.bot_admin ) {
                 // is a dm?
                 if ( message.channel.type != 'dm') {
                   oneErrorMessage({ error: 'Not a DM!', description: '<@' + message.author + '>, The verify command can only be run from a DM!' });
