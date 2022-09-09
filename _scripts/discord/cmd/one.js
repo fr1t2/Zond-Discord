@@ -7,7 +7,7 @@ module.exports = {
   usage: ' ',
   cooldown: 0,
 
-  execute(message) {
+  execute(message, args) {
     const Discord = require('discord.js');
     const chalk = require('chalk');
     const dbHelper = require('../../db/dbHelper');
