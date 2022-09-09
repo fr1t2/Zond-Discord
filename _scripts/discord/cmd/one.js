@@ -307,7 +307,10 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
             if ( args[0] == "verify") {
 
-              if ((uuid != config.plusone.plusone_admin || !message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) )) {
+              const user_role = message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name));
+              console.log(user_role);
+              
+              if (uuid != config.plusone.plusone_admin || !message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) ) {
                 oneErrorMessage({ error: 'Not Authorized!', description: '<@' + message.author + '>, You are not authorized for this command!' });
                 return;
               }
