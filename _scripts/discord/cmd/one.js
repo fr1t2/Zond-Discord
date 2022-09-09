@@ -68,7 +68,7 @@ module.exports = {
       setTimeout(function() {
         const embed = new Discord.MessageEmbed()
           .setColor(0x000000)
-          .setTitle(':grey_exclamation:  Err: ' + content.error)
+          .setTitle(':grey_exclamation:  Oops!:\t' + content.error)
           .setDescription(content.description);
         message.reply({ embed });
         message.channel.stopTyping(true);
@@ -303,18 +303,24 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
             
             console.log(JSON.stringify(plusOneCheck));
             
-            if ( message.channel.type == 'dm' && args[0] == "verify" && (uuid == config.plusone.plusone_admin || message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) ) ) {
 
 
+            if ( args[0] == "verify") {
 
+              if ((uuid != config.plusone.plusone_admin || !message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) )) {
+                oneErrorMessage({ error: 'Not Authorized!', description: '<@' + message.author + '>, You are not authorized for this command!' });
+                return;
+              }
+              if ( message.channel.type != 'dm') {
+                oneErrorMessage({ error: 'Not a DM!', description: '<@' + message.author + '>, The verify command can only be run from a DM!' });
+                return;
+              }
+      
               // send message to request list and wait fro the list to be sent (csv)
 
               // Using this list, hash the salt and see if it matches something in the DB, 
 
               // if so return the users data in a csv
-              return;
-            }
-            else if ( message.channel.type == 'dm' && args[0] == "verify" && (uuid != config.plusone.plusone_admin || !message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) ) ) {
               return;
             }
             if (plusOneCheck.plusone_found === "true") {
