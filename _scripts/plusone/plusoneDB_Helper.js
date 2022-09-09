@@ -51,10 +51,7 @@ async function CheckPlusOne(args) {
           console.log('[mysql error]', err);
         }
         if (result.length) {
-          console.log(result.length);
           if (result) {
-            console.log(result);
-            
             const id = result[0].user_id;
             const service = result[0].service;
             const paid = result[0].one_paid;
