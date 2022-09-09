@@ -341,6 +341,8 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
               if (args[0] == "key" || args[0] == "Key" || args[0] == "onekey") {
                 // regenerate a key and send the details
+                oneErrorMessage({ error: 'Not Implimented', description: 'This function is not implemented yet...' });
+
                 return;
               }
 
