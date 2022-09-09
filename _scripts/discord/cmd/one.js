@@ -68,15 +68,15 @@ module.exports = {
       setTimeout(function() {
         const embed = new Discord.MessageEmbed()
           .setColor(0x000000)
-          .setTitle(':grey_exclamation:  Oops!\t' + content.error)
+          .setTitle('Oops!\t' + content.error)
           .setDescription(content.description);
         message.reply({ embed });
         message.channel.stopTyping(true);
       }, 500);
     }
 
-    function oneMessage(content, footer = '  .: Tipbot Tidbits provided by The QRL Contributors :.') {
-      // errorMessage({ source: 'XXXXX', title: 'YYYYYYYY', message: 'ZZZZZZZZZZ' }, footer...);
+    function oneMessage(content, footer = '  .: Tipbot provided by The QRL Contributors :.') {
+      // oneMessage({ source: 'XXXXX', title: 'YYYYYYYY', message: 'ZZZZZZZZZZ' }, footer...);
       message.channel.startTyping();
       setTimeout(function() {
         const embed = new Discord.MessageEmbed()
@@ -358,7 +358,8 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
               plusOneHelper.InsertPlusOne({service: "discord", user_id: userArray[0][0][0].user_id, one_key: '', one_amt: 1 })
 
-              ReplyMessage('One QRL, One Community!!\nYou have signed up, One QRL is on the way!');
+              oneMessage('One QRL, One Community!!\nYou have signed up, One QRL is on the way!');
+              // oneMessage({ source: 'https://oneqrl.otd.to/community/', title: 'OneQRL', message: 'Little things we do, make us what we are. One QRL is on the way to your tipbot account. Thanks for signing up!' }, footer...);
               message.react(emojiCharacters.o)
                 .then(() => message.react(emojiCharacters.n))
                 .then(() => message.react(emojiCharacters.e))
