@@ -83,7 +83,7 @@ if not who:
         #logging('\nno drips found, exit\n')
         exit()
 else:
-    master_address = conf['faucet']['faucet_wallet_pub']
+    master_address = conf['plusone']['wallet_pub']
     logging.info('drips found')
 
 def relayTransferTxnBySlave(addresses_to, amounts, feeShor, master_address):
@@ -98,7 +98,7 @@ def relayTransferTxnBySlave(addresses_to, amounts, feeShor, master_address):
 
 tx = relayTransferTxnBySlave(addresses_to, amount_toSend, feeShor, master_address)
 tx_hash = tx['tx']['transaction_hash']
-UpdateSQL = ("UPDATE faucet_payouts SET faucet_payouts.paid = 1, faucet_payouts.updated_at = '%s', faucet_payouts.tx_hash = '%s' WHERE faucet_payouts.paid = 0" % (current_time, tx_hash))
+UpdateSQL = ("UPDATE plusone SET plusone.one_paid = 1, plusone.updated_at = '%s', plusone.tx_hash = '%s' WHERE plusone.one_paid = 0" % (current_time, tx_hash))
 
 mycursor.execute(UpdateSQL)
 mydb.commit()
