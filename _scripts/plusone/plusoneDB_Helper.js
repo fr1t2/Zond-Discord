@@ -93,7 +93,6 @@ async function InsertPlusOne(args) {
     if (args == null) {
       return;
     }
-    const id = args.id;
     const user_id = args.user_id;
     const service = args.service;
     const one_key = args.one_key;

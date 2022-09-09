@@ -38,7 +38,6 @@ module.exports = {
     function ReplyMessage(content) {
       message.channel.startTyping();
       setTimeout(function() {
-        message.channel.stopTyping(true);
         message.reply(content)
           // delete the message after a bit
           .then(msg => {
@@ -46,6 +45,7 @@ module.exports = {
           })
           .catch( );
       }, 100);
+      message.channel.stopTyping(true);
     }
 
     function errorMessage(content, footer = '  .: Tipbot provided by The QRL Contributors :.') {
@@ -71,7 +71,12 @@ module.exports = {
           .setTitle(':warning: Error:\t' + content.error)
           .setDescription(content.description);
         message.reply({ embed });
-        message.channel.stopTyping(true);
+          // delete the message after a bit
+          .then(msg => {
+            setTimeout(() => msg.delete(), 10000)
+          })
+          message.channel.stopTyping(true);
+          .catch( );
       }, 500);
     }
 
@@ -339,14 +344,14 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
                 return;
               }
 
-              oneErrorMessage({ error: 'User Signed Up Previously', description: '<@' + message.author + '>, you have previously signed up, once per user.\n[More information here](https://oneqrl.otd.to/community/)' });
+              oneErrorMessage({ error: 'User Signed Up Previously', description: '<@' + message.author + '>, you have previously signed up, one time per user!\nMore information can be found here: [oneqrl.otd.to](https://oneqrl.otd.to/community/)' });
 
               if (plusOneCheck.paid === 0) {
                 const embed = new Discord.MessageEmbed()
                   .setColor(0x000000)
                   .setTitle('Plus One Information')
                   .setURL('https://oneqrl.otd.to/community/')
-                  .setDescription('Details from your Plus One signup. Funds are on the way and will take a few minutes to transfer. \nMore information can be found here [oneqrl.otd.to](https://oneqrl.otd.to/community/)')
+                  .setDescription('Details from your Plus One signup. Funds are on the way and will take a few minutes to transfer. \nMore information can be found here: [oneqrl.otd.to](https://oneqrl.otd.to/community/)')
                   .addField('Signed up date:', `\`${plusOneCheck.time_stamp}\``, false)
                   .addField('Funds Paid:', `\`false\``, false)
                   .setFooter('  .: Tipbot provided by The QRL Contributors :.');
@@ -362,7 +367,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
                   .setColor(0x000000)
                   .setTitle('Plus One Information')
                   .setURL('https://oneqrl.otd.to/community/')
-                  .setDescription(`Details from your Plus One signup. \nMore information can be found here [oneqrl.otd.to](https://oneqrl.otd.to/community/)`)
+                  .setDescription(`Details from your Plus One signup. \nMore information can be found here: [oneqrl.otd.to](https://oneqrl.otd.to/community/)`)
                   .addField('Signed up date:', `\`${plusOneCheck.time_stamp}\``, false)
                   .addField('Payment TX_Hash:', `[\`${plusOneCheck.hash}\`](${config.bot_details.explorer_url}/tx/${plusOneCheck.hash})`, false)
                   .addField('Payment Timestamp:', `\`${plusOneCheck.updated_at}\``, false)
