@@ -362,10 +362,10 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
                   .setColor(0x000000)
                   .setTitle('Plus One Information')
                   .setURL('https://oneqrl.otd.to/community/')
-                  .setDescription(`Details from your Plus One signup. Looks like you were the \`${plusOneCheck.id}\` person to signup! \nMore information can be found here [oneqrl.otd.to](https://oneqrl.otd.to/community/)`)
+                  .setDescription(`Details from your Plus One signup. \nMore information can be found here [oneqrl.otd.to](https://oneqrl.otd.to/community/)`)
                   .addField('Signed up date:', `\`${plusOneCheck.time_stamp}\``, false)
                   .addField('Payment TX_Hash:', `[\`${plusOneCheck.hash}\`](${config.bot_details.explorer_url}/tx/${plusOneCheck.hash})`, false)
-                  .addField('Payment Timestamp:', `\`${plusOneCheck.time_stamp}\``, false)
+                  .addField('Payment Timestamp:', `\`${plusOneCheck.updated_at}\``, false)
                   .setFooter('  .: Tipbot provided by The QRL Contributors :.');
                 message.author.send({ embed })
                   .catch(error => {
