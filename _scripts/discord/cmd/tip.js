@@ -131,7 +131,7 @@ module.exports = {
     async function tipDBWrite(tipInfo) {
       // send the users data to future_tips for when they sign up
       return new Promise(resolve => {
-        const addToTipsDBinfo = { from_user_id: tipInfo.from_user_id, tip_amount: toQuanta(tipInfo.tip_amount), from_service: 'discord', time_stamp: new Date() };
+        const addToTipsDBinfo = { from_user_id: tipInfo.from_user_id, to_users_id: tipInfo.to_users_id, tip_amount: toQuanta(tipInfo.tip_amount), from_service: 'discord', time_stamp: new Date() };
         const addToTipsDBinfoWrite = dbHelper.addTip(addToTipsDBinfo);
         resolve(addToTipsDBinfoWrite);
       });
@@ -411,7 +411,7 @@ module.exports = {
           ReplyMessage('Working on it...');
 
           // add users to the tips db and create a tip_id to track this tip through
-          const addTipInfo = { from_user_id: tippingUserUser_Id, tip_amount: givenTip };
+          const addTipInfo = { from_user_id: tippingUserUser_Id, to_users_id: service_user_ID, tip_amount: givenTip };
           const addTipResults = await tipDBWrite(addTipInfo);
           const tip_id = addTipResults[0].tip_id;
           // check for tx_id to be created...
