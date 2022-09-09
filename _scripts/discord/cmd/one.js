@@ -336,24 +336,45 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
               if (args[0] == "key" || args[0] == "Key" || args[0] == "onekey") {
                 // regenerate a key and send the details
-
                 return;
               }
 
               oneErrorMessage({ error: 'User Signed Up Previously', description: '<@' + message.author + '>, you have previously signed up, once per user.\n[More information here](https://oneqrl.otd.to/community/)' });
-              const embed = new Discord.MessageEmbed()
-                .setColor(0x000000)
-                .setTitle('Plus One Information')
-                .setURL('https://oneqrl.otd.to/community/')
-                .setDescription('Details from your Plus One signup. \n[More information here](https://oneqrl.otd.to/community/)')
-                .addField('Signed up date:', `\`${plusOneCheck.time_stamp}\``, false)
-                .setFooter('  .: Tipbot provided by The QRL Contributors :.');
-              message.author.send({ embed })
-                .catch(error => {
-                  errorMessage({ error: 'Direct Message Disabled...', description: 'It seems you have DM\'s blocked, please enable and try again...' });
-                  if (error) return error;
-                });
+
+              if (plusOneCheck.paid === 0) {
+                const embed = new Discord.MessageEmbed()
+                  .setColor(0x000000)
+                  .setTitle('Plus One Information')
+                  .setURL('https://oneqrl.otd.to/community/')
+                  .setDescription('Details from your Plus One signup. Funds are on the way and will take a few minutes to transfer. \nMore information can be found here [oneqrl.otd.to](https://oneqrl.otd.to/community/)')
+                  .addField('Signed up date:', `\`${plusOneCheck.time_stamp}\``, false)
+                  .addField('Funds Paid:', `\`false\``, false)
+                  .setFooter('  .: Tipbot provided by The QRL Contributors :.');
+                message.author.send({ embed })
+                  .catch(error => {
+                    errorMessage({ error: 'Direct Message Disabled...', description: 'It seems you have DM\'s blocked, please enable and try again...' });
+                    if (error) return error;
+                  });
+
+              }
+              else if (plusOneCheck.paid === 1) {
+                const embed = new Discord.MessageEmbed()
+                  .setColor(0x000000)
+                  .setTitle('Plus One Information')
+                  .setURL('https://oneqrl.otd.to/community/')
+                  .setDescription(`Details from your Plus One signup. Looks like you were the \`${plusOneCheck.id}\` person to signup! \nMore information can be found here [oneqrl.otd.to](https://oneqrl.otd.to/community/)`)
+                  .addField('Signed up date:', `\`${plusOneCheck.time_stamp}\``, false)
+                  .addField('Payment TX_Hash:', `[\`${plusOneCheck.hash}\`](${config.bot_details.explorer_url}/tx/${plusOneCheck.hash})`, false)
+                  .addField('Payment Timestamp:', `\`${plusOneCheck.time_stamp}\``, false)
+                  .setFooter('  .: Tipbot provided by The QRL Contributors :.');
+                message.author.send({ embed })
+                  .catch(error => {
+                    errorMessage({ error: 'Direct Message Disabled...', description: 'It seems you have DM\'s blocked, please enable and try again...' });
+                    if (error) return error;
+                  });
+              }
             }
+
             else {
               // User not found in table, add them and pay out
 
