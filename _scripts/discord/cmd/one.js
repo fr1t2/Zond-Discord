@@ -153,7 +153,7 @@ module.exports = {
     async function oneWalletBalance() {
       return new Promise(function(resolve) {
       // using the +one address check for a balance
-        const walletAddress = config.one.one_wallet_pub;
+        const walletAddress = config.plusone.wallet_pub;
         getBalance(walletAddress).then(function(balance) {
           resolve(balance);
         });
