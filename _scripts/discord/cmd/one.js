@@ -127,7 +127,7 @@ module.exports = {
 
     // check if this is a DM and if so, block forcing user into the chat room
     if (message.channel.type === 'dm' && args[0] != "verify") {
-      errorMessage({ error: 'Can\'t access +one from DM!', description: 'Please try again from the QRL Discord Server, this function will only work there.' });
+      errorMessage({ error: 'Can\'t access +one from DM!', description: 'Please try again from the [QRL Discord Server](https://theqrl.org/discord), this function will only work there.' });
       return;
     }
 
