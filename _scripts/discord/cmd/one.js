@@ -68,7 +68,7 @@ module.exports = {
       setTimeout(function() {
         const embed = new Discord.MessageEmbed()
           .setColor(0x000000)
-          .setTitle(':warning:  ERROR: ' + content.error)
+          .setTitle(':grey_exclamation:  Err: ' + content.error)
           .setDescription(content.description);
         message.reply({ embed });
         message.channel.stopTyping(true);
@@ -312,14 +312,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
               // Using this list, hash the salt and see if it matches something in the DB, 
 
               // if so return the users data in a csv
-
-
-
-
-            }
-            else {
-              // Not authorized message sent with generic response
-              errorMessage({ error: 'Not Authorized!', description: 'You do not have permission for this command.' });
+              return;
             }
 
             if (plusOneCheck.plusone_found === "true") {
@@ -327,6 +320,8 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
               if (args[0] == "key" || args[0] == "Key" || args[0] == "onekey") {
                 // regenerate a key and send the details
+
+                return;
               }
 
               oneErrorMessage({ error: 'User Received One QRL Previously', description: '<@' + message.author + '>, you have signed up and received your payout already, one per user.' });
