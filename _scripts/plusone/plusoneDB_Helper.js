@@ -37,7 +37,7 @@ async function CountPlusOneSignup() {
         resolve(resultsArray);
       }
 
-      console.log('CountPlusOneSignup result: ' + result)
+      console.log('CountPlusOneSignup result: ' + JSON.stringify(result))
       
       resultsArray.push(result);
       resolve(resultsArray);
