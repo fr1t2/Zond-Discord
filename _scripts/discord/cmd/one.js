@@ -321,7 +321,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
             }
 
-            if (plusOneCheck[0].plusone_found) {
+            if (plusOneCheck.plusone_found) {
               // User is found in the table and has been paid previously
 
               if (args[0] == "key" || args[0] == "Key" || args[0] == "onekey") {
@@ -333,7 +333,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
                 .setColor(0x000000)
                 .setTitle('Plus One Information')
                 .setDescription('Details from your Plus One signup.')
-                .addField('Signed up date:', `\`${plusOneCheck[0].time_stamp}\``, false)
+                .addField('Signed up date:', `\`${plusOneCheck.time_stamp}\``, false)
                 .setFooter('  .: Tipbot provided by The QRL Contributors :.');
               message.author.send({ embed })
                 .catch(error => {
