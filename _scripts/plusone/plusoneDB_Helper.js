@@ -89,13 +89,14 @@ async function InsertPlusOne(args) {
   // send a request to the plusone promotion for payout.
   return new Promise(resolve => {
     const resultsArray = [];
-    // expects { service: service, user_id: user_id, one_key: key }
+    // expects { service: service, user_id: user_id, one_key: key, one_amt: 1 }
     if (args == null) {
       return;
     }
     const user_id = args.user_id;
     const service = args.service;
     const one_key = args.one_key;
+    const one_amt = args.one_key;
     let date = '';
     if (args.date) {
       date = args.date;
@@ -103,8 +104,8 @@ async function InsertPlusOne(args) {
     else {
       date = new Date();
     }
-    const plusone_usersValues = [[ user_id, service, one_key, new Date(), date]];
-    const addTo_plusone = 'INSERT INTO plusone(user_id, service, one_key, updated_at, time_stamp) VALUES ?';
+    const plusone_usersValues = [[ user_id, service, one_key, one_amt, new Date(), date]];
+    const addTo_plusone = 'INSERT INTO plusone(user_id, service, one_key, one_amt, updated_at, time_stamp) VALUES ?';
     callmysql.query(addTo_plusone, [plusone_usersValues], function(err, result) {
       if (err) {
         console.log('[mysql error]', err);

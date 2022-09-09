@@ -356,7 +356,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
             else {
               // User not found in table, add them and pay out
 
-              plusOneHelper.InsertPlusOne({service: "discord", user_id: userArray[0][0][0].user_id, one_key: '' })
+              plusOneHelper.InsertPlusOne({service: "discord", user_id: userArray[0][0][0].user_id, one_key: '', one_amt: 1 })
 
               ReplyMessage('One QRL, One Community!!\nYou have signed up, One QRL is on the way!');
               message.react(emojiCharacters.o)
