@@ -40,7 +40,7 @@ async function CountPlusOneSignup() {
 
       console.log('CountPlusOneSignup result: ' + JSON.stringify(result))
       
-      resultsArray.push(result);
+      resultsArray.push(result[0].Cardinality);
       resolve(resultsArray);
     });
   });
