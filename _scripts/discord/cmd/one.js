@@ -54,7 +54,7 @@ module.exports = {
       setTimeout(function() {
         const embed = new Discord.MessageEmbed()
           .setColor(0x000000)
-          .setTitle(':warning:  ERROR: ' + content.error)
+          .setTitle(':warning: ERROR: ' + content.error)
           .setDescription(content.description)
           .setFooter(footer);
         message.reply({ embed });
@@ -68,7 +68,7 @@ module.exports = {
       setTimeout(function() {
         const embed = new Discord.MessageEmbed()
           .setColor(0x000000)
-          .setTitle('Oops!\t' + content.error)
+          .setTitle(':warning: Error:\t' + content.error)
           .setDescription(content.description);
         message.reply({ embed });
         message.channel.stopTyping(true);
