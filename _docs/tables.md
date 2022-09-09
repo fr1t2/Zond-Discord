@@ -147,7 +147,7 @@ The `plusone` table collects user info connected to the Plus One promotion. This
 - **user_id** from `users.id` table.field to join user and wallet
 - **one_paid** boolean paid or not
 - **plusone_payouts_id** ID from the plusone_payouts transaction table
-- **one_key** Random hash sent to user to validate their account with additional promotions and events. Random salt sent to user, hashed into the database
+- **one_key**  Random salt sent to user, hashed into the database used to validate account with additional promotions and events.
 - **time_stamp** time signed up
 
 ```sql
