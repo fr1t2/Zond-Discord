@@ -73,7 +73,7 @@ module.exports = {
         message.reply({ embed })
           // delete the message after a bit
           .then(msg => {
-            setTimeout(() => msg.delete(), 10000)
+            setTimeout(() => msg.delete(), 30000)
           })
           .catch( );
         message.channel.stopTyping(true);
