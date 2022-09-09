@@ -104,7 +104,7 @@ async function InsertPlusOne(args) {
     else {
       date = new Date();
     }
-    const plusone_usersValues = [[ user_id, service, one_key, one_amt, new Date(), date]];
+    const plusone_usersValues = [[ user_id, service, one_key, 1, new Date(), date]];
     const addTo_plusone = 'INSERT INTO plusone(user_id, service, one_key, one_amt, updated_at, time_stamp) VALUES ?';
     callmysql.query(addTo_plusone, [plusone_usersValues], function(err, result) {
       if (err) {
