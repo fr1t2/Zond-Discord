@@ -27,6 +27,26 @@ function toShor(number) {
 }
 // ///////////////////////////////////
 
+async function CountPlusOneSignup() {
+
+  SHOW INDEXES FROM plusone WHERE Key_Name="PRIMARY";
+
+  return new Promise(resolve => {
+    const count_stats = 'SHOW INDEXES FROM plusone WHERE Key_Name="PRIMARY"';
+    callmysql.query(count_stats, function(err, result) {
+      if (err) {
+        console.log('[mysql error]', err);
+        resultsArray.push({ error: err });
+        resolve(resultsArray);
+      }
+
+      console.log('CountPlusOneSignup result: ' + result)
+      
+      resultsArray.push(result);
+      resolve(resultsArray);
+    });
+  });
+}
 
 
 async function CheckPlusOne(args) {
@@ -242,6 +262,7 @@ async function UpdatePlusOneKey(args) {
 //}
 
 module.exports = {
+  CountPlusOneSignup: CountPlusOneSignup,
   CheckPlusOne: CheckPlusOne,
   InsertPlusOne: InsertPlusOne,
   UpdatePlusOne: UpdatePlusOne,
