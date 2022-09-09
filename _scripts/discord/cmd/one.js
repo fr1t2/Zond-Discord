@@ -2,7 +2,7 @@ module.exports = {
   name: 'one',
   description: 'One QRL - 1 Quanta Reward, +0ne',
   args: false,
-  aliases: ['plusone', 'PlusOne', 'Plusone', 'onequanta', 'oneQuanta', 'Onequanta', 'OneQuanta', 'ONE', 'One', 'ONe', 'otdto'],
+  aliases: ['1', 'plusone', 'PlusOne', 'Plusone', 'onequanta', 'oneQuanta', 'Onequanta', 'OneQuanta', 'ONE', 'One', 'ONe', 'otdto'],
   guildOnly: false,
   usage: ' ',
   cooldown: 0,
@@ -340,11 +340,12 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
                 return;
               }
 
-              oneErrorMessage({ error: 'User Received One QRL Previously', description: '<@' + message.author + '>, you have signed up and received your payout already, one per user.' });
+              oneErrorMessage({ error: 'User Signed Up Previously', description: '<@' + message.author + '>, you have previously signed up, once per user.\n[More information here](https://oneqrl.otd.to/community/)' });
               const embed = new Discord.MessageEmbed()
                 .setColor(0x000000)
                 .setTitle('Plus One Information')
-                .setDescription('Details from your Plus One signup.')
+                .setURL('https://oneqrl.otd.to/community/')
+                .setDescription('Details from your Plus One signup. \n[More information here](https://oneqrl.otd.to/community/)')
                 .addField('Signed up date:', `\`${plusOneCheck.time_stamp}\``, false)
                 .setFooter('  .: Tipbot provided by The QRL Contributors :.');
               message.author.send({ embed })
@@ -359,7 +360,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
               plusOneHelper.InsertPlusOne({service: "discord", user_id: userArray[0][0][0].user_id, one_key: '', one_amt: 1 })
 
               //oneMessage('One QRL, One Community!!\nYou have signed up, One QRL is on the way!');
-              oneMessage({ source: 'https://oneqrl.otd.to/community/', title: 'OneQRL', message: 'Little things we do, make us what we are. One QRL is on the way to your tipbot account. Thanks for signing up!' });
+              oneMessage({ source: 'https://oneqrl.otd.to/community/', title: 'OneQRL', message: 'Little things we do, make us what we are. 1 QRL is on the way to your tipbot account. Thanks for signing up!' });
               message.react(emojiCharacters.o)
                 .then(() => message.react(emojiCharacters.n))
                 .then(() => message.react(emojiCharacters.e))
