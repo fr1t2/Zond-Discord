@@ -358,8 +358,8 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
               plusOneHelper.InsertPlusOne({service: "discord", user_id: userArray[0][0][0].user_id, one_key: '', one_amt: 1 })
 
-              oneMessage('One QRL, One Community!!\nYou have signed up, One QRL is on the way!');
-              // oneMessage({ source: 'https://oneqrl.otd.to/community/', title: 'OneQRL', message: 'Little things we do, make us what we are. One QRL is on the way to your tipbot account. Thanks for signing up!' }, footer...);
+              //oneMessage('One QRL, One Community!!\nYou have signed up, One QRL is on the way!');
+              oneMessage({ source: 'https://oneqrl.otd.to/community/', title: 'OneQRL', message: 'Little things we do, make us what we are. One QRL is on the way to your tipbot account. Thanks for signing up!' }, footer...);
               message.react(emojiCharacters.o)
                 .then(() => message.react(emojiCharacters.n))
                 .then(() => message.react(emojiCharacters.e))
