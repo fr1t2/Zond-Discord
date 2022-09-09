@@ -29,6 +29,7 @@ function toShor(number) {
 
 async function CountPlusOneSignup() {
   return new Promise(resolve => {
+    const resultsArray = [];
     const count_stats = 'SHOW INDEXES FROM plusone WHERE Key_Name="PRIMARY"';
     callmysql.query(count_stats, function(err, result) {
       if (err) {
