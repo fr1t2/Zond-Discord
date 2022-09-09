@@ -277,7 +277,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 */
 // --------------------------------------------------------------------------------------------------------------- //
     const userArray = [];
-    oneWalletBalance();
+    oneWalletBalance()
     // Check wallet and return if no funds there
       .then(function(balanceRes) {
         // fail if no funds in wallet
