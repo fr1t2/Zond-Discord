@@ -68,7 +68,7 @@ module.exports = {
       setTimeout(function() {
         const embed = new Discord.MessageEmbed()
           .setColor(0x000000)
-          .setTitle(':grey_exclamation:  Oops!:\t' + content.error)
+          .setTitle(':grey_exclamation:  Oops!\t' + content.error)
           .setDescription(content.description);
         message.reply({ embed });
         message.channel.stopTyping(true);
@@ -307,13 +307,8 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
 
             if ( args[0] == "verify") {
 
-              const user_role = message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name));
-              if (user_role) {
-                console.log("User Authorized")
-                console.log(user_role);
-              }
               // is user authorized
-              if (uuid == config.plusone.plusone_admin || message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) ) {
+              if (uuid == config.plusone.plusone_admin || uuid == config.discord.bot_admin ) {
                 // is a dm?
                 if ( message.channel.type != 'dm') {
                   oneErrorMessage({ error: 'Not a DM!', description: '<@' + message.author + '>, The verify command can only be run from a DM!' });
