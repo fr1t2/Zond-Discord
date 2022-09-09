@@ -312,13 +312,19 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
                 console.log("User Authorized")
                 console.log(user_role);
               }
-
-              if (uuid != config.plusone.plusone_admin || !message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) ) {
-                oneErrorMessage({ error: 'Not Authorized!', description: '<@' + message.author + '>, You are not authorized for this command!' });
+              // is user authorized
+              if (uuid == config.plusone.plusone_admin || message.member.roles.cache.some(r=>[config.discord.admin_role, config.discord.mod_role].includes(r.name)) ) {
+                // is a dm?
+                if ( message.channel.type != 'dm') {
+                  oneErrorMessage({ error: 'Not a DM!', description: '<@' + message.author + '>, The verify command can only be run from a DM!' });
+                  return;
+                }
+                console.log("Verify called!")
                 return;
               }
-              if ( message.channel.type != 'dm') {
-                oneErrorMessage({ error: 'Not a DM!', description: '<@' + message.author + '>, The verify command can only be run from a DM!' });
+              else {
+                oneErrorMessage({ error: 'Not Authorized!', description: '<@' + message.author + '>, You are not authorized for this command!' });
+                console.lgo("Not Auth")
                 return;
               }
       
@@ -327,7 +333,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
               // Using this list, hash the salt and see if it matches something in the DB, 
 
               // if so return the users data in a csv
-              return;
+//              return;
             }
             if (plusOneCheck.plusone_found === "true") {
               // User is found in the table and has been paid previously
