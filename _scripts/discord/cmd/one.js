@@ -1,6 +1,6 @@
 module.exports = {
   name: 'one',
-  description: 'One QRL - 1 Quanta Reward, +0ne',
+  description: 'One QRL - 1 Quantum Reward, +0ne',
   args: false,
   aliases: ['1', 'plusone', 'PlusOne', 'Plusone', 'onequanta', 'oneQuanta', 'Onequanta', 'OneQuanta', 'ONE', 'One', 'ONe', 'otdto'],
   guildOnly: false,
@@ -79,7 +79,7 @@ module.exports = {
           .setColor('BLUE')
           .setURL(content.source)
           .setTitle(content.title)
-          .setDescription(`${content.message} \nMore information can be found here: [oneqrl.otd.to](${content.source})`)
+          .setDescription(`${content.message} \nMore information can be found here: [OneQRL.com](${content.source})`)
           .setFooter(footer);
         message.reply({ embed });
         message.channel.stopTyping(true);
@@ -268,13 +268,13 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
               }
 */
 
-              oneErrorMessage({ error: 'User Signed Up Previously', description: '<@' + message.author + '>, you have previously signed up, one time per user!\nMore information can be found here: [oneqrl.otd.to](https://oneqrl.otd.to)' });
+              oneErrorMessage({ error: 'User Signed Up Previously', description: '<@' + message.author + '>, you have previously signed up, one time per user!\nMore information can be found here: [OneQRL.com](https://oneqrl.com)' });
               if (plusOneCheck.paid === 0) {
                 const embed = new Discord.MessageEmbed()
                   .setColor(0x000000)
                   .setTitle('Plus One Information')
-                  .setURL('https://oneqrl.otd.to')
-                  .setDescription('Details from your Plus One signup. Funds are on the way and will take a few minutes to transfer. \nMore information can be found here: [oneqrl.otd.to](https://oneqrl.otd.to)')
+                  .setURL('https://oneqrl.com')
+                  .setDescription('Details from your Plus One signup. Funds are on the way and will take a few minutes to transfer. \nMore information can be found here: [OneQRL.com](https://oneqrl.com)')
                   .addField('Signed up date:', `\`${plusOneCheck.time_stamp}\``, false)
                   .addField('Funds Paid:', `\`false\``, false)
                   .setFooter('  .: Tipbot provided by The QRL Contributors :.');
@@ -288,8 +288,8 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
                 const embed = new Discord.MessageEmbed()
                   .setColor(0x000000)
                   .setTitle('Plus One Information')
-                  .setURL('https://oneqrl.otd.to')
-                  .setDescription(`Details from your Plus One signup. \nMore information can be found here: [oneqrl.otd.to](https://oneqrl.otd.to)`)
+                  .setURL('https://oneqrl.com')
+                  .setDescription(`Details from your Plus One signup. \nMore information can be found here: [OneQRL.com](https://oneqrl.com)`)
                   .addField('Signed up date:', `\`${plusOneCheck.time_stamp}\``, false)
                   .addField('Payment TX_Hash:', `[\`${plusOneCheck.hash}\`](${config.bot_details.explorer_url}/tx/${plusOneCheck.hash})`, false)
                   .addField('Payment Timestamp:', `\`${plusOneCheck.updated_at}\``, false)
@@ -305,7 +305,7 @@ Payout happens in a separate script combining a group up to 100 addresses togeth
               // User not found in table, add them and pay out
               plusOneHelper.InsertPlusOne({service: "discord", user_id: userArray[0][0][0].user_id, one_key: '', one_amt: config.plusone.fixed_amount });
               //oneMessage('One QRL, One Community!!\nYou have signed up, One QRL is on the way!');
-              oneMessage({ source: 'https://oneqrl.otd.to/', title: 'OneQRL', message: 'Little things we do, make us what we are. 1 QRL is on the way to your tipbot account. Thanks for signing up!' });
+              oneMessage({ source: 'https://oneqrl.com', title: 'OneQRL', message: 'Little things we do, make us what we are. 1 QRL is on the way to your tipbot account. Thanks for signing up!' });
               message.react(emojiCharacters.o)
                 .then(() => message.react(emojiCharacters.n))
                 .then(() => message.react(emojiCharacters.e))

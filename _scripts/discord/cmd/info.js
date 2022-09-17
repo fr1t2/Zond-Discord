@@ -245,8 +245,8 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
           .setColor('GREEN')
           .setTitle('**One QRL Info**')
-          .setURL(botUrl)
-          .setDescription('Information on the One QRL promotion that community member <@829021562275364886> has setup.\nFor full details see the main site at [oneqrl.otd.to](https://oneqrl.otd.to/)')
+          .setURL('https://oneqrl.com')
+          .setDescription('Information on the One QRL promotion that the community team over at [OneQRL](https://oneqrl.com/community/#oneteam) has setup.')
           .addFields(
             { name: 'Total Users Signed Up: ', value: `\`${plusOneCount}\``, inline: false },
             { name: 'PlusOne Wallet Balance: ', value: `\`${plusOneBal}\``, inline: false },
