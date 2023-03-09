@@ -7,7 +7,7 @@ const chalk = require('chalk');
 const Discord = require('discord.js');
 const wallet = require('../qrl/walletTools');
 const explorer = require('../qrl/explorerTools');
-// const cgTools = require('../coinGecko/cgTools'); /* Enable for Coin Data ticker */
+const cgTools = require('../coinGecko/cgTools'); /* Enable for Coin Data ticker */
 
 // Require the config file. Create it from the example
 const config = require('../../_config/config.json');
@@ -56,14 +56,14 @@ client.on('ready', () => {
     });
   }
 
-  /* Enable for Coin Data ticker
+// Enable for Coin Data ticker
 function getCgData() {
   return new Promise(resolve => {
     const cgdata = cgTools.cgData();
     resolve(cgdata);
   });
 }
-*/
+
 
   function getPoolInfo() {
     return new Promise(resolve => {
