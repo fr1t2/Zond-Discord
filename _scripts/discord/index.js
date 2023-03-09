@@ -93,14 +93,14 @@ function getCgData() {
     return parseFloat(hashrate).toFixed(2) + byteUnits[i];
   }
 
-  /* Enable for Coin Data ticker
-async function cgData() {
-  const data = await getCgData();
-  const array = [];
-  array.push({ cgData: data });
-  return array;
+  
+  async function cgData() {
+    const data = await getCgData();
+    const array = [];
+    array.push({ cgData: data });
+    return array;
   }
-*/
+
   async function Height() {
     const data = await getHeight();
     const array = [];
@@ -134,7 +134,7 @@ async function cgData() {
   // const i = setInterval(function() {
   setInterval(function() {
     counter++;
-    /*
+
   if(counter === 1) {
     // call the function and get the results
     cgData().then(function(usdResp) {
@@ -169,19 +169,19 @@ async function cgData() {
         .catch(console.error);
     });
   }
-  */
-    if(counter === 1) {
+
+    if(counter === 4) {
     // call the function and get the results
       poolInfo().then(function(poolInfoResp) {
       // console.log(JSON.stringify(usdResp[0].cgData))
         const data = JSON.parse(poolInfoResp[0].poolInfo);
         const hashrate = getHashRate(data.network.difficulty / data.config.coinDifficultyTarget) + '/sec';
         // console.log(data)
-        client.user.setPresence({ activity: { name: 'HashRate: ' + hashrate, type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
+        client.user.setPresence({ activity: { name: 'HR: ' + hashrate, type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
           .catch(console.error);
       });
     }
-    if(counter === 2) {
+    if(counter === 5) {
     // call the function and get the results
       faucetBal().then(function(faucetBalResp) {
       // console.log(JSON.stringify(faucetBalResp[0].faucetBal))
@@ -201,16 +201,16 @@ async function cgData() {
         }
       });
     }
-    if(counter === 3) {
+    if(counter === 6) {
       Height().then(function(heightResp) {
         const height = JSON.parse(heightResp[0].height);
         // console.log('print blockheight');
-        client.user.setPresence({ activity: { name: 'BlockHeight: ' + height.height, type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
+        client.user.setPresence({ activity: { name: 'Block: ' + height.height, type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
         // .then(console.log)
           .catch(console.error);
       });
     }
-    if(counter === 4) {
+    if(counter === 7) {
     // reset to initial message
       client.user.setPresence({ activity: { name: 'for tips', type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
         .catch(console.error);
