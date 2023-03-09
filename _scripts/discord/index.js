@@ -142,7 +142,7 @@ function getCgData() {
       const data = JSON.parse(usdResp[0].cgData);
       // console.log(data)
       const qrlusd = data.market_data.current_price.usd;
-      client.user.setPresence({ activity: { name: 'QRL/USD: $' + qrlusd.toFixed(3), type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
+      client.user.setPresence({ activity: { name: 'USD: $' + qrlusd.toFixed(3), type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
         .catch(console.error);
     });
   }
@@ -153,7 +153,7 @@ function getCgData() {
       const data = JSON.parse(btcResp[0].cgData);
       // console.log(data)
       const qrlbtc = data.market_data.current_price.btc;
-      client.user.setPresence({ activity: { name: 'BTC: ' + qrlbtc.toFixed(8), type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
+      client.user.setPresence({ activity: { name: 'BTC: ₿' + qrlbtc.toFixed(8), type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
         .catch(console.error);
     });
   }
@@ -165,7 +165,7 @@ function getCgData() {
       const data = JSON.parse(ethResp[0].cgData);
       // console.log(data)
       const qrleth = data.market_data.current_price.eth;
-      client.user.setPresence({ activity: { name: 'ETH: ' + qrleth.toFixed(8), type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
+      client.user.setPresence({ activity: { name: 'ETH: Ξ' + qrleth.toFixed(8), type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
         .catch(console.error);
     });
   }
