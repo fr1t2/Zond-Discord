@@ -195,7 +195,7 @@ function getCgData() {
             .catch(console.error);
         }
         else {
-          client.user.setPresence({ activity: { name: ', the faucet is Dry', type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
+          client.user.setPresence({ activity: { name: ', a dry faucet..', type: 'WATCHING', url: 'https://qrl.tips', details: 'QRL TipBot sending quanta, and giving away funds in the faucet.', state: 'active and awake', applicationID: 'v1.0.0' }, status: 'online' })
             .catch(console.error);
 
         }
